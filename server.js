@@ -13,9 +13,7 @@ const db = knex({
   client: "pg",
   connection: {
     connectionString: process.env.DATABASE_URL,
-    ssl:true
-
-
+    ssl: true,
   },
 });
 
@@ -33,7 +31,7 @@ app.use(cors());
 
 */
 app.get("/", (req, res) => {
- res.send('it is working');
+  res.send("it is working");
 });
 app.post("/signin", (req, res) => {
   signin.handleSignin(db, bcrypt)(req, res);
