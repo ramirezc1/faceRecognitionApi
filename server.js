@@ -32,7 +32,9 @@ app.use(cors());
 /image -> PUT-> user
 
 */
-
+app.get("/", (req, res) => {
+ res.send('it is working');
+});
 app.post("/signin", (req, res) => {
   signin.handleSignin(db, bcrypt)(req, res);
 });
