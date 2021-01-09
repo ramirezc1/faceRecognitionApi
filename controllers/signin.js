@@ -1,3 +1,4 @@
+const { compareSync } = require("bcrypt-nodejs");
 const jwt = require("jsonwebtoken");
 
 // Redis Setup
@@ -7,6 +8,7 @@ const redis = require("redis");
 const redisClient = redis.createClient(process.env.REDIS_URI);
 
 const signToken = (username) => {
+  console.log(username);
   const jwtPayload = { username };
   return jwt.sign(jwtPayload, "JWT_SECRET_KEY", { expiresIn: "2 days" });
 };
@@ -61,7 +63,6 @@ const getAuthTokenId = (req, res) => {
 
 const signinAuthentication = (db, bcrypt) => (req, res) => {
   const { authorization } = req.headers;
-
   return authorization
     ? getAuthTokenId(req, res)
     : handleSignin(db, bcrypt, req, res)
@@ -75,4 +76,6 @@ const signinAuthentication = (db, bcrypt) => (req, res) => {
 module.exports = {
   signinAuthentication: signinAuthentication,
   redisClient: redisClient,
+  setToken: setToken,
+  signToken: signToken,
 };
