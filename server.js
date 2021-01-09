@@ -11,6 +11,7 @@ const register = require("./controllers/register");
 const signin = require("./controllers/signin");
 const profile = require("./controllers/profile");
 const image = require("./controllers/image");
+const auth = require("./controllers/authorization");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
@@ -38,22 +39,26 @@ app.get("/", (req, res) => {
   res.send("it is working");
 });
 app.post("/signin", (req, res) => {
-  signin.handleSignin(db, bcrypt)(req, res);
+  signin.signinAuthentication(db, bcrypt)(req, res);
 });
 
 app.post("/register", (req, res) => {
   register.handleRegister(db, bcrypt)(req, res);
 });
 
-app.get("/profile/:id", (req, res) => {
+app.get("/profile/:id", auth.requireAuth, (req, res) => {
   profile.handleGetProfile(db)(req, res);
 });
 
-app.put("/image", (req, res) => {
+app.post("/profile/:id", auth.requireAuth, (req, res) => {
+  profile.handleProfileUpdate(req, res, db);
+});
+
+app.put("/image", auth.requireAuth, (req, res) => {
   image.handleImage(db)(req, res);
 });
 
-app.post("/imageUrl", (req, res) => {
+app.post("/imageUrl", auth.requireAuth, (req, res) => {
   image.handleApiCall(req, res);
 });
 
