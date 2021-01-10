@@ -7,7 +7,7 @@ CREATE TABLE users (
     entries BIGINT DEFAULT 0,
     joined TIMESTAMP NOT NULL,
     age SMALLINT,
-    url VARCHAR(200) 
+    url VARCHAR(250) 
 );
 
 COMMIT;

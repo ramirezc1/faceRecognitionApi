@@ -8,7 +8,7 @@ const redis = require("redis");
 const redisClient = redis.createClient(process.env.REDIS_URI);
 
 const signToken = (username) => {
-  console.log(username);
+  
   const jwtPayload = { username };
   return jwt.sign(jwtPayload, "JWT_SECRET_KEY", { expiresIn: "2 days" });
 };
@@ -27,7 +27,6 @@ const createSession = (user) => {
 
 const handleSignin = (db, bcrypt, req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
   if (!email || !password) {
     return Promise.reject("incorrect form submission");
   }
