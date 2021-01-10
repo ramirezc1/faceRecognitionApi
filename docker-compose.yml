@@ -24,6 +24,7 @@ services:
     #image: node:14.15.4
     build: ./
     command: npm start
+    env_file: .env
     working_dir: /usr/faceRecognitionApi
     environment:
       POSTGRES_URI: postgres://admin:secret@postgres:5432/face-recognition-docker
@@ -31,4 +32,5 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./:/usr/faceRecognitionApi
+      # - ./:/usr/faceRecognitionApi
+      - ./webapp:/opt/webapp

@@ -6,4 +6,4 @@ COPY ./ ./
 
 RUN npm install
 
-CMD ["/bin/sh"]
+CMD ["/bin/bash"]
